@@ -35,15 +35,33 @@ function flash()
   return new Flash;
 }
 
-function calculateAverageRating(array $ratings): int {
-  if (count($ratings) === 0) {
-      return 0;
-  }
+function old($field)
+{
+  $post = $_POST;
 
-  $totalRating = 0;
-  foreach ($ratings as $rating) {
-      $totalRating += $rating->rating;
+  if (isset($post)) {
+    return $post[$field] ?? '';
   }
+  
+  return '';
+}
 
-  return round($totalRating / count($ratings));
+function getErrors($validations, $field)
+{
+  $errors = isset($validations[$field]) ? $validations[$field] : [];
+
+  return !empty($errors) ? $errors[0] : '';
+}
+
+function invalidUserError($validations)
+{
+    if (!is_array($validations)) {
+        return '';
+    }
+
+    if (in_array('Incorrect e-mail or password!', $validations)) {
+        return 'Incorrect e-mail or password!';
+    }
+
+    return '';
 }

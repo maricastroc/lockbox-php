@@ -1,6 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $email = $_POST['email'];
 
     $password = $_POST['password'];
@@ -23,9 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($validations)) {
       flash()->push('validations', $validations);
-
-      header('Location: /login');
-
+      view('login');
+      
       exit();
     }
 
@@ -35,11 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($user) {
         if (!password_verify($password, $user->password)) {
-          flash()->push('validations', [
-            'Incorrect e-mail or password!'
-          ]);
+          flash()->push('validations', $validations);
 
-          header('location: /login');
+          view('login');
           
           exit();
         }
@@ -53,6 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       flash()->push('validations', [
         'Incorrect e-mail or password!'
       ]);
+
+      view('login');
+      exit();
     }
 }
 

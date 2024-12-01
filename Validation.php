@@ -27,14 +27,16 @@ class Validation {
   }
 
   private function required($field, $fieldValue) {
-      if (empty($fieldValue) || strlen($fieldValue) < 1) {
-          $this->validations[] = "$field is required.";
-      }
-  }
+    if (empty($fieldValue) || strlen($fieldValue) < 1) {
+        $fieldName = ucfirst($field);
+
+        $this->addError($field, "$fieldName is required.");
+    }
+}
 
   private function email($field, $fieldValue) {
       if (!filter_var($fieldValue, FILTER_VALIDATE_EMAIL)) {
-          $this->validations[] = "$field is not valid.";
+          $this->addError($field, "$field is not valid.");
       }
   }
 
@@ -43,25 +45,35 @@ class Validation {
       $confirmFieldValue = $data[$confirmField] ?? null;
 
       if ($fieldValue !== $confirmFieldValue) {
-          $this->validations[] = "$field and $confirmField don't match!";
+          $this->addError($field, "$field and $confirmField don't match!");
       }
   }
 
+  private function incorrect($field, $fieldValue, $data) {
+    $confirmField = "confirm_$field";
+    $confirmFieldValue = $data[$confirmField] ?? null;
+
+    if ($fieldValue !== $confirmFieldValue) {
+        $this->addError($field, "$field and $confirmField don't match!");
+    }
+}
+
   private function min($min, $field, $fieldValue) {
     if (strlen($fieldValue) < $min) {
-        $this->validations[] = "$field must have at least $min characters.";
+      $fieldName = ucfirst($field);
+        $this->addError($field, "$fieldName must have at least $min characters.");
     }
   }
 
   private function max($max, $field, $fieldValue) {
     if (strlen($fieldValue) > $max) {
-        $this->validations[] = "$field must have a max of $max characters.";
+        $this->addError($field, "$field must have a max of $max characters.");
     }
   }
 
   private function strong($field, $fieldValue) {
     if (!preg_match('/[!$&()*+,\-\.\/:;<=>\?%#@{}\[\]~^|_`]/', $fieldValue)) {
-        $this->validations[] = "$field must have a special character.";
+        $this->addError($field, "$field must have a special character.");
     }
   }
 
@@ -76,7 +88,11 @@ class Validation {
     )->fetch();
 
     if ($result) {
-      $this->validations[] = "E-mail already taken.";
+      $this->addError($field, "E-mail already taken.");
     }
+  }
+
+  private function addError($field, $error) {
+    $this->validations[$field][] = $error;
   }
 }

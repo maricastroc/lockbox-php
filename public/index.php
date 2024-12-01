@@ -1,12 +1,6 @@
 <?php
 
-require "../models/Gender.php";
-
 require "../models/User.php";
-
-require "../models/Movie.php";
-
-require "../models/Rating.php";
 
 require "../Flash.php";
 

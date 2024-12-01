@@ -4,20 +4,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $validations = [];
   $name = $_POST['name'];
   $email = $_POST['email'];
-  $confirm_email = $_POST['confirm_email'];
+  $confirm_password = $_POST['confirm_password'];
   $password = $_POST['password'];
 
   $data = [
     'name' => $_POST['name'],
     'email' => $_POST['email'],
-    'confirm_email' => $_POST['confirm_email'],
+    'confirm_password' => $_POST['confirm_password'],
     'password' => $_POST['password'],
   ];
 
   $rules = [
-    'email' => ['required', 'confirmed', 'unique:users'],
-    'confirm_email' => ['required'],
-    'password' => ['min:8', 'max:30', 'strong'],
+    'name' => ['required'],
+    'email' => ['required', 'unique:users'],
+    'confirm_password' => ['required'],
+    'password' => ['min:8', 'max:30', 'strong', 'confirmed'],
   ];
 
   $validation = Validation::validate($rules, $data);
@@ -26,9 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (!empty($validations)) {
     flash()->push('validations', $validations);
-    
-    header('Location: /register-user');
-
+    view('register');
+  
     exit();
   }
 
@@ -46,4 +46,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   header('location: /login');
 }
 
-view('register-user');
+view('register');

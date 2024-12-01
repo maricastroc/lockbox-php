@@ -48,7 +48,7 @@ $message = flash()->get('message');
             </div>
           </div>
         </div>
-        <button onclick="window.location.href='/movie?id=<?= $movie->id ?>'" class="hover:bg-indigo-600 transition duration-200 mt-4 py-2 rounded-lg w-full bg-neutral-900 text-neutral-300 items-center justify-center font-mono text-sm text-center">
+        <button onclick="window.location.href='../movie?id=<?= $movie->id ?>'" class="hover:bg-indigo-600 transition duration-200 mt-4 py-2 rounded-lg w-full bg-neutral-900 text-neutral-300 items-center justify-center font-mono text-sm text-center">
           View Movie
         </button>
       </div>
@@ -57,6 +57,6 @@ $message = flash()->get('message');
 <?php else : ?>
   <div class="flex flex-col mx-auto text-center w-full gap-3">
     <h2 class="font-mono text-center text-neutral-100 text-md">No movies available.</h2>
-    <a href="/register-movie" class="font-mono text-indigo-500 hover:text-indigo-300 transition duration-200">Click here to add a new movie!</a>
+    <a href="../register-movie" class="font-mono text-indigo-500 hover:text-indigo-300 transition duration-200">Click here to add a new movie!</a>
   </div>
 <?php endif; ?>

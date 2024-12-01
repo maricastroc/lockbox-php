@@ -2,7 +2,7 @@
 $validations = flash()->get('validations') ?? [];
 $message = flash()->get('successfully_registered');
 
-require 'views/partials/utils.php';
+require '../views/partials/utils.php';
 ?>
 
 <form method="POST" class="w-[17rem] md:w-[30rem] gap-3 flex flex-col space-x-2 mt-6 mx-auto justify-center">

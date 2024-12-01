@@ -39,26 +39,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Definir o diretório onde a imagem será salva
-    $dir = "data/movies/images/";
+    $dir = "./data/movies/images/";
 
     if (!is_dir($dir)) {
-        mkdir($dir, 0755, true); // Criar o diretório se ele não existir
+        mkdir($dir, 0755, true);
     }
 
-    // Gerar um nome único para a imagem
-    $newFileName = md5(rand()); // Você pode ajustar o nome conforme necessário
-    $cover_url = $dir . $newFileName . '.' . $imageFileType; // Caminho completo do arquivo
+    $newFileName = md5(rand());
+    $cover_url = $dir . $newFileName . '.' . $imageFileType;
 
-    // Mover o arquivo para o diretório
     if (move_uploaded_file($_FILES['cover_url']['tmp_name'], $cover_url)) {
-        // Obter os dados do filme do formulário
         $title = htmlspecialchars($_POST['title']);
         $director = htmlspecialchars($_POST['director']);
         $synopsis = htmlspecialchars($_POST['synopsis']);
         $release_year = htmlspecialchars($_POST['release_year']);
 
-        // Inserir o filme no banco de dados com o caminho da imagem
         $database->query(
             query: "INSERT INTO movies (user_id, title, director, synopsis, release_year, cover_url) 
             VALUES (:user_id, :title, :director, :synopsis, :release_year, :cover_url)",
@@ -69,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'director' => $director,
                 'synopsis' => $synopsis,
                 'release_year' => $release_year,
-                'cover_url' => $cover_url, // Salvar o caminho completo da imagem no banco
+                'cover_url' => $cover_url,
             ]
         );
 
@@ -81,8 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Redirecionar para a página de filmes do usuário
-    header("Location: /my-movies");
+    header("Location: ../my-movies");
     exit();
 }
 

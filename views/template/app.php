@@ -55,7 +55,7 @@ $user = $_SESSION['auth'] ?? null;
     </nav>
   </header>
   <main class="mt-2 w-full py-4 px-4 space-y-6">
-    <?php require "views/{$view}.view.php"; ?>
+    <?php require "../views/{$view}.view.php"; ?>
   </main>
 </body>
 

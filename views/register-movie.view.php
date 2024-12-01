@@ -14,7 +14,7 @@ $validations = flash()->get('validations') ?? [];
 <div id="review-form-section" class="w-full max-w-[35rem] mx-auto p-2">
   <h2 class="font-mono text-center heading-md">Register a New Movie!</h2>
   <form enctype="multipart/form-data" method="POST" class="mt-4 flex flex-col bg-neutral-900 p-4 rounded-md border border-neutral-700 text-neutral-300">
-    <?php require "views/partials/_image-input.php"; ?>
+    <?php require "../views/partials/_image-input.php"; ?>
   
     <div class="flex flex-col gap-1 mb-6">
       <label class="font-mono text-sm">Movie Title</label>

@@ -1,7 +1,7 @@
 <?php
 $user = auth();
 
-require 'views/partials/utils.php';
+require '../views/partials/utils.php';
 ?>
 
 <section class="w-[90vw] mx-auto flex flex-col">
@@ -30,7 +30,7 @@ require 'views/partials/utils.php';
   <section class="grid gap-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-12" aria-labelledby="movies-heading">
     <h2 id="movies-heading" class="sr-only">Movies List</h2>
     <?php foreach ($data['movies'] as $movie) : ?>
-      <?php require "views/partials/_movie.php"; ?>
+      <?php require "../views/partials/_movie.php"; ?>
     <?php endforeach; ?>
   </section>
 </main>

@@ -5,10 +5,9 @@ $showForm = !empty(flash()->get('validations')) || (isset($_GET['show_form']) &&
 $message = flash()->get('message');
 $validations = flash()->get('validations') ?? [];
 
-require 'views/partials/utils.php';
+require '../views/partials/utils.php';
 ?>
 
-<!-- CSS Styles -->
 <style>
   .custom-height { max-height: 70vh; }
   .custom-scrollbar {
@@ -32,7 +31,7 @@ require 'views/partials/utils.php';
           <?= renderMovieImage($movie) ?>
           <div class="h-auto flex flex-col justify-between w-full text-center">
             <div>
-              <a href="/movie?id=<?= $movie->id ?>" class="line-clamp-2 font-mono hover:text-neutral-100 transition duration-200 font-semibold text-sm">
+              <p class="line-clamp-2 font-mono transition duration-200 font-semibold text-sm">
                 <?= "{$movie->title} ({$movie->release_year})" ?>
               </a>
               <div class="text-xs italic my-2"><?= $movie->director ?></div>
@@ -78,7 +77,7 @@ require 'views/partials/utils.php';
         </section>
       <?php endif; ?>
     </aside>
-    <?php require "views/partials/_review.php"; ?>
+    <?php require "../views/partials/_review.php"; ?>
   </section>
 </div>
 

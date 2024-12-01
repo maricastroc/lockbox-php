@@ -2,7 +2,7 @@
 
 function view($view, $data = [])
 {
-  require 'views/template/app.php';
+  require '../views/template/app.php';
 }
 
 function abort($code)
@@ -21,7 +21,7 @@ function auth() {
 }
 
 function config($key = null) {
-  $config = require 'config.php';
+  $config = require '../config.php';
 
   if ($key !== null) {
     return $config[$key];

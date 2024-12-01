@@ -1,6 +1,13 @@
 <?php
 
+use Core\Database;
+use Core\Validation;
+
+use function Core\flash;
+use function Core\view;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $database = new Database($config['database']);
 
     $email = $_POST['email'];
 
@@ -48,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         exit();
     } else {
-      flash()->push('validations', [
+      flash()->push('validations', ['email' => [
         'Incorrect e-mail or password!'
-      ]);
+      ]]);
 
       view('login');
       exit();

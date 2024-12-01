@@ -1,4 +1,9 @@
 <?php
+
+use function Core\flash;
+use function Core\getErrors;
+use function Core\old;
+
 $validations = flash()->get('validations') ?? [];
 ;?>
 

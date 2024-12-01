@@ -1,6 +1,14 @@
 <?php
 
+use Core\Database;
+use Core\Validation;
+
+use function Core\flash;
+use function Core\view;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $database = new Database($config['database']);
+
   $validations = [];
   $name = $_POST['name'];
   $email = $_POST['email'];
@@ -41,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ],
   );
 
-  flash()->push('successfully_registered', 'Successfully Registered!');
+  flash()->push('successfully_registered', 'User successfully registered!');
 
   header('location: /login');
 }

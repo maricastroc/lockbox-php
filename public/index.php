@@ -2,7 +2,7 @@
 
 use function Core\base_path;
 
-require "../models/User.php";
+require "../Core/functions.php";
 
 spl_autoload_register(function($class) {
   $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
@@ -12,9 +12,7 @@ spl_autoload_register(function($class) {
 
 session_start();
 
-require "../Core/functions.php";
+$config = require base_path("config/config.php");
 
-$config = require "../config.php";
-
-require "../routes.php";
+require base_path("config/routes.php");
 

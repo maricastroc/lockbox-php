@@ -1,14 +1,21 @@
 <?php
 
+namespace App\Controllers;
+
+use App\Models\User;
 use Core\Database;
 use Core\Validation;
 
+use function Core\config;
 use function Core\flash;
+use function Core\redirect;
 use function Core\view;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $database = new Database($config['database']);
+class LoginController
+{
 
+  public function login()
+  {
     $email = $_POST['email'];
 
     $password = $_POST['password'];
@@ -31,37 +38,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($validations)) {
       flash()->push('validations', $validations);
-      view('login');
-      
-      exit();
+      return view('login');
     }
+
+    $database = new Database(config('database'));
 
     $query = $database->query("SELECT * FROM users WHERE email = :email", User::class, ['email' => $email]);
 
     $user = $query->fetch();
 
-    if ($user) {
-        if (!password_verify($password, $user->password)) {
-          flash()->push('validations', $validations);
-
-          view('login');
-          
-          exit();
-        }
-
-        $_SESSION['auth'] = $user;
-
-        header('location: /');
-
-        exit();
-    } else {
+    if (!$user) {
       flash()->push('validations', ['email' => [
         'Incorrect e-mail or password!'
       ]]);
 
-      view('login');
-      exit();
+      return view('login');
     }
-}
 
-view('login');
+    if (!password_verify($password, $user->password)) {
+      flash()->push('validations', ['email' => [
+        'Incorrect e-mail or password!'
+      ]]);
+
+      return view('login');
+    }
+
+    $_SESSION['auth'] = $user;
+
+    return redirect('/');
+  }
+
+  public function __invoke()
+  {
+    return view('login');
+  }
+}

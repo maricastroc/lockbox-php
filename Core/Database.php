@@ -26,12 +26,12 @@ class Database {
 
   private function getDsn($config) {
     $driver = $config['driver'];
-
+  
     if ($driver == 'sqlite') {
-      $dsn = $config['driver'] . ':database.sqlite';
+      $dsn = $config['driver'] . ':' . $config['database'];
       return $this->db = new PDO($dsn); 
     }
-
+  
     $dsn = $config['driver'] . ':host=' . $config['host'] . ';port=' . $config['port'] . ';dbname=' . $config['database'] . ';charset=utf8mb4';
     
     return $this->db = new PDO($dsn, $config['user'], $config['password']);

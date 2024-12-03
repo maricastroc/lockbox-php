@@ -38,7 +38,7 @@ class LoginController
 
     if (!empty($validations)) {
       flash()->push('validations', $validations);
-      return view('login');
+      return view('login', template: 'guest');
     }
 
     $database = new Database(config('database'));
@@ -52,7 +52,7 @@ class LoginController
         'Incorrect e-mail or password!'
       ]]);
 
-      return view('login');
+      return view('login', template: 'guest');
     }
 
     if (!password_verify($password, $user->password)) {
@@ -60,16 +60,16 @@ class LoginController
         'Incorrect e-mail or password!'
       ]]);
 
-      return view('login');
+      return view('login', template: 'guest');
     }
 
     $_SESSION['auth'] = $user;
 
-    return redirect('/');
+    return redirect('/dashboard');
   }
 
-  public function __invoke()
+  public function index()
   {
-    return view('login');
+    return view('login', template: 'guest');
   }
 }

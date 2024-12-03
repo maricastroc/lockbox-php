@@ -6,9 +6,9 @@ function base_path($path = '') {
   return realpath(__DIR__ . '/../') . DIRECTORY_SEPARATOR . $path;
 }
 
-function view($view, $data = [])
+function view($view, $data = [], $template = 'app')
 {
-  require base_path('views/template/app.php');
+  require base_path("views/template/{$template}.php");
 }
 
 function abort($code)

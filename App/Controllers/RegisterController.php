@@ -35,7 +35,7 @@ use function Core\view;
 
       if (!empty($validations)) {
         flash()->push('validations', $validations);
-        return view('register');
+        return view('register', template: 'guest');
       }
 
       $database = new Database(config('database'));
@@ -54,7 +54,7 @@ use function Core\view;
       redirect('/login');
     }
 
-    public function __invoke() {
-      return view('register');
+    public function index() {
+      return view('register', template: 'guest');
     }
   }

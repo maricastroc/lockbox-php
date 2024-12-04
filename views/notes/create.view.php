@@ -19,14 +19,14 @@ $message = flash()->get('successfully_registered');
       <div class="label">
         <span class="label-text">Title</span>
       </div>
-      <input name="title" type="text" placeholder="Type here" class="input input-bordered w-full" />
+      <input name="title" type="text" placeholder="Your title here" class="input input-bordered w-full" />
       <span class="text-error mt-1 text-sm"><?= getErrors($validations, 'title') ?></span>
     </label>
     <label class="form-control">
       <div class="label">
         <span class="label-text">Your note</span>
       </div>
-      <textarea name="note" class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+      <textarea name="note" class="textarea textarea-bordered h-24" placeholder="Your note here"></textarea>
       <span class="text-error mt-1 text-sm"><?= getErrors($validations, 'note') ?></span>
     </label>
 

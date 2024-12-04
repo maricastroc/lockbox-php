@@ -7,6 +7,6 @@ use function Core\view;
   class IndexController {
     
     public function __invoke() {
-      return view('index', template: 'guest');
+      return view('/index', template: 'guest');
     }
   }

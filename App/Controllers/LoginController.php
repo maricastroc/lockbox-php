@@ -65,11 +65,11 @@ class LoginController
 
     $_SESSION['auth'] = $user;
 
-    return redirect('/notes');
+    return redirect('notes');
   }
 
   public function index()
   {
-    return view('login', template: 'guest');
+    return view('/login', template: 'guest');
   }
 }

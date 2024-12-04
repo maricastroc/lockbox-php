@@ -9,8 +9,6 @@ use App\Middlewares\AuthMiddleware;
 use App\Middlewares\GuestMiddleware;
 use Core\Route;
 
-use function Core\abort;
-
 (new Route())
   ->get('/', IndexController::class)
 
@@ -23,6 +21,9 @@ use function Core\abort;
 
   ->get('/notes/create', [Notes\CreateController::class, 'index'], AuthMiddleware::class)
   ->post('/notes/create', [Notes\CreateController::class, 'store'], AuthMiddleware::class)
+
+  ->put('/note', Notes\UpdateController::class, AuthMiddleware::class)
+  ->delete('/note', Notes\DeleteController::class, AuthMiddleware::class)
 
   ->post('/register', [RegisterController::class, 'register'], GuestMiddleware::class)
   ->get('/register', [RegisterController::class, 'index'], GuestMiddleware::class)

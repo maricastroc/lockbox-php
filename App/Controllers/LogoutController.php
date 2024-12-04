@@ -9,6 +9,6 @@ use function Core\redirect;
     public function __invoke() {
       session_destroy();
 
-      return redirect('login');
+      return redirect('/login');
     }
   }

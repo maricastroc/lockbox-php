@@ -2,25 +2,20 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Core\Database;
 use Core\Validation;
 
 use function Core\config;
 use function Core\flash;
 use function Core\redirect;
+use function Core\request;
 use function Core\view;
 
   class RegisterController {
     
     public function register() {
       $validations = [];
-
-      $data = [
-        'name' => $_POST['name'],
-        'email' => $_POST['email'],
-        'confirm_password' => $_POST['confirm_password'],
-        'password' => $_POST['password'],
-      ];
 
       $rules = [
         'name' => ['required'],
@@ -29,25 +24,16 @@ use function Core\view;
         'password' => ['min:8', 'max:30', 'strong', 'confirmed'],
       ];
 
-      $validation = Validation::validate($rules, $data);
+      $validation = Validation::validate($rules, request()->all());
 
       $validations = $validation->validations;
 
       if (!empty($validations)) {
         flash()->push('validations', $validations);
-        return view('register', template: 'guest');
+        return view('/register', template: 'guest');
       }
 
-      $database = new Database(config('database'));
-
-      $database->query(
-        query: "insert into users (email, password, name) values (:email, :password, :name)",
-        params: [
-          'email' => $_POST['email'],
-          'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
-          'name' => $_POST['name'],
-        ],
-      );
+      User::create(request()->post('name'), request()->post('email'), request()->post('password'));
     
       flash()->push('successfully_registered', 'User successfully registered!');
     
@@ -55,6 +41,6 @@ use function Core\view;
     }
 
     public function index() {
-      return view('register', template: 'guest');
+      return view('/register', template: 'guest');
     }
   }

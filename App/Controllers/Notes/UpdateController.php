@@ -5,20 +5,18 @@ namespace App\Controllers\Notes;
 use App\Models\Note;
 use Core\Validation;
 
-use function Core\auth;
 use function Core\flash;
 use function Core\redirect;
 use function Core\request;
-use function Core\view;
 
-  class CreateController {
-    public function store()
-    { 
+  class UpdateController {   
+    public function __invoke() {
       $validations = [];
   
       $rules = [
         'title' => ['required', 'min:3', 'max:255'],
         'note' => ['required'],
+        'id' => ['required'],
       ];
   
       $validation = Validation::validate($rules, request()->all());
@@ -27,20 +25,13 @@ use function Core\view;
   
       if (!empty($validations)) {
         flash()->push('validations', $validations);
-        return view('notes/create');
+        return redirect('/notes?id=' . request()->post('id'));
       }
-  
-      Note::create(request()->post('title'), request()->post('note'));
-  
-      flash()->push('successfully_created', 'Note successfully created!');
 
-      return redirect('/notes');
-    }
-  
-    
-    public function index() {
-      return view('notes/create', [
-        'user' => auth()
-    ]);
+      Note::update(request()->post('id'), request()->post('title'), request()->post('note'));
+
+      flash()->push('successfully_updated', 'Note successfully updated!');
+
+      return redirect('notes');
   }
   }

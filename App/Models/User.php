@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Core\Database;
+
+use function Core\config;
+
   class User {
     public $id;
     public $name;
@@ -19,5 +23,19 @@ namespace App\Models;
       $user->avatar_url = $item['avatar_url'];
 
       return $user;
+    }
+
+    public static function create($name, $email, $password)
+    {
+      $database = new Database(config('database'));
+
+      $database->query(
+        query: "insert into users (email, password, name) values (:email, :password, :name)",
+        params: [
+          'email' => $email,
+          'password' => password_hash($password, PASSWORD_DEFAULT),
+          'name' => $name,
+        ],
+      );
     }
   }

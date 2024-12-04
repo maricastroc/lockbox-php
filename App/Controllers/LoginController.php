@@ -65,7 +65,7 @@ class LoginController
 
     $_SESSION['auth'] = $user;
 
-    return redirect('/dashboard');
+    return redirect('/notes');
   }
 
   public function index()

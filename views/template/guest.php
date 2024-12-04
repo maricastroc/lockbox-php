@@ -1,4 +1,7 @@
 <?php
+
+use function Core\base_path;
+
 $user = $_SESSION['auth'] ?? null;
 ?>
 
@@ -30,7 +33,7 @@ $user = $_SESSION['auth'] ?? null;
 </head>
 
 <body class="bg-base-100 text-neutral-100">
-<?php require "../views/{$view}.view.php"; ?>
+<?php require base_path("views/{$view}.view.php"); ?>
 </body>
 
 </html>

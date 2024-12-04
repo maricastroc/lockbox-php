@@ -2,12 +2,15 @@
 
 namespace Core;
 
-function base_path($path = '') {
+function base_path($path = '')
+{
   return realpath(__DIR__ . '/../') . DIRECTORY_SEPARATOR . $path;
 }
 
 function view($view, $data = [], $template = 'app')
 {
+  extract($data);
+
   require base_path("views/template/{$template}.php");
 }
 
@@ -18,7 +21,8 @@ function abort($code)
   die();
 }
 
-function auth() {
+function auth()
+{
   if (!isset($_SESSION['auth'])) {
     return null;
   }
@@ -28,21 +32,22 @@ function auth() {
 
 function dd($dump)
 {
-    echo '<pre>';
+  echo '<pre>';
 
-    if (is_iterable($dump)) {
-        foreach ($dump as $item) {
-            var_dump($item);
-        }
-    } else {
-        var_dump($dump);
+  if (is_iterable($dump)) {
+    foreach ($dump as $item) {
+      var_dump($item);
     }
+  } else {
+    var_dump($dump);
+  }
 
-    echo '</pre>';
-    die();
+  echo '</pre>';
+  die();
 }
 
-function config($key = null) {
+function config($key = null)
+{
   $config = require base_path('config/config.php');
 
   if ($key !== null) {
@@ -64,7 +69,7 @@ function old($field)
   if (isset($post)) {
     return $post[$field] ?? '';
   }
-  
+
   return '';
 }
 
@@ -77,5 +82,10 @@ function getErrors($validations, $field)
 
 function redirect($uri)
 {
-    return header('Location:' . $uri);
+  return header('Location:' . $uri);
+}
+
+function request()
+{
+  return new Request();
 }

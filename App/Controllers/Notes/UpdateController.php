@@ -8,16 +8,18 @@ use Core\Validation;
 use function Core\flash;
 use function Core\redirect;
 use function Core\request;
+use function Core\session;
 
   class UpdateController {   
     public function __invoke() {
+      $shouldUpdateNote = session()->get('show');
+
       $validations = [];
   
-      $rules = [
+      $rules = array_merge([
         'title' => ['required', 'min:3', 'max:255'],
-        'note' => ['required'],
         'id' => ['required'],
-      ];
+      ], $shouldUpdateNote ? ['note' => ['required']] : []);
   
       $validation = Validation::validate($rules, request()->all());
   

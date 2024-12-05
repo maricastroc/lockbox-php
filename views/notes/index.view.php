@@ -11,6 +11,7 @@ $validations = flash()->get('validations') ?? [];
 
     use function Core\getErrors;
     use function Core\request;
+use function Core\session;
 
     foreach ($notes as $key => $note) : ?>
       <a href="/notes?id=<?= $note->id ?><?= request()->get('search', '', '&search=') ?>" class="focus:outline-none flex flex-col gap-1 w-full text-gray-100 px-4 py-3 cursor-pointer hover:bg-base-200
@@ -37,7 +38,7 @@ $validations = flash()->get('validations') ?? [];
         <div class="label">
           <span class="label-text">Your Note</span>
         </div>
-        <textarea name="note" class="textarea textarea-bordered h-24 w-full" placeholder="Your note here"><?= isset($selectedNote) ? $selectedNote->note : '' ?></textarea>
+        <textarea <?php if (!session()->get('show')): ?> disabled <?php endif; ?> name="note" class="textarea textarea-bordered h-24 w-full" placeholder="Your note here"><?= isset($selectedNote) ? $selectedNote->note() : '' ?></textarea>
         <span class="text-error mt-1 text-sm"><?= getErrors($validations, 'note') ?></span>
       </label>
     </form>

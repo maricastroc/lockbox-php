@@ -9,6 +9,7 @@ use function Core\auth;
 use function Core\flash;
 use function Core\redirect;
 use function Core\request;
+use function Core\secured_encrypt;
 use function Core\view;
 
   class CreateController {
@@ -30,7 +31,7 @@ use function Core\view;
         return view('notes/create');
       }
   
-      Note::create(request()->post('title'), request()->post('note'));
+      Note::create(request()->post('title'), secured_encrypt(request()->post('note')));
   
       flash()->push('successfully_created', 'Note successfully created!');
 

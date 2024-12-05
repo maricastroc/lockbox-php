@@ -9,6 +9,8 @@ use Core\Validation;
 use function Core\config;
 use function Core\flash;
 use function Core\redirect;
+use function Core\request;
+use function Core\session;
 use function Core\view;
 
 class LoginController
@@ -16,23 +18,18 @@ class LoginController
 
   public function login()
   {
-    $email = $_POST['email'];
+    $email = request()->post('email');
 
-    $password = $_POST['password'];
+    $password = request()->post('password');
 
     $validations = [];
-
-    $data = [
-      'email' => $email,
-      'password' => $password,
-    ];
 
     $rules = [
       'email' => ['required'],
       'password' => ['min:8'],
     ];
 
-    $validation = Validation::validate($rules, $data);
+    $validation = Validation::validate($rules, request() ->all());
 
     $validations = $validation->validations;
 
@@ -63,7 +60,7 @@ class LoginController
       return view('login', template: 'guest');
     }
 
-    $_SESSION['auth'] = $user;
+    session()->set('auth', $user);
 
     return redirect('notes');
   }

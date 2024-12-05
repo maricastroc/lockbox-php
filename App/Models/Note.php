@@ -7,6 +7,9 @@ use Core\Database;
 use function Core\auth;
 use function Core\config;
 use function Core\request;
+use function Core\secured_decrypt;
+use function Core\secured_encrypt;
+use function Core\session;
 
 class Note
 {
@@ -74,14 +77,19 @@ class Note
   {
     $database = new Database(config('database'));
 
+    $set = "title = :title";
+
+    if($note) {
+      $set .= ", note = :note";
+    }
+
     $database->query(
-      query: "UPDATE notes SET title = :title, note = :note, updated_at = :updated_at WHERE id = :id",
-      params: [
+      query: "UPDATE notes SET $set, updated_at = :updated_at WHERE id = :id",
+      params: array_merge([
         'id' => $id,
         'title' => $title,
-        'note' => $note,
         'updated_at' => date('Y-m-d H:i:s'),
-      ],
+      ], $note ? ['note' => secured_encrypt($note),] : []),
     );
   }
 
@@ -95,5 +103,14 @@ class Note
         'id' => $id,
       ],
     );
+  }
+
+  public function note()
+  {
+    if(session()->get('show')) {
+      return secured_decrypt($this->note);
+    }
+
+    return str_repeat('*', rand(10,100));
   }
 }

@@ -28,4 +28,8 @@ use Core\Route;
   ->post('/register', [RegisterController::class, 'register'], GuestMiddleware::class)
   ->get('/register', [RegisterController::class, 'index'], GuestMiddleware::class)
 
+  ->post('/show', [Notes\ShowController::class, 'show'], AuthMiddleware::class)
+  ->get('/hide', [Notes\ShowController::class, 'hide'], AuthMiddleware::class)
+  ->get('/confirm', [Notes\ShowController::class, 'confirm'], AuthMiddleware::class)
+
   ->run();

@@ -5,7 +5,7 @@ use function Core\getErrors;
 use function Core\old;
 
 $validations = flash()->get('validations') ?? [];
-;?>
+?>
 
 <div class="flex flex-col md:grid md:grid-cols-2 bg-base-100">
   <div class="hero min-h-screen flex justify-center items-center px-4 md:px-10 lg:px-40 bg-base-100">

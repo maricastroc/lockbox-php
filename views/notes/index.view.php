@@ -10,17 +10,17 @@ $validations = flash()->get('validations') ?? [];
     <?php
 
     use function Core\getErrors;
-    use function Core\request;
+use function Core\request;
 use function Core\session;
 
-    foreach ($notes as $key => $note) : ?>
+foreach ($notes as $key => $note) { ?>
       <a href="/notes?id=<?= $note->id ?><?= request()->get('search', '', '&search=') ?>" class="focus:outline-none flex flex-col gap-1 w-full text-gray-100 px-4 py-3 cursor-pointer hover:bg-base-200
-        <?php if ($key == 0) : ?> rounded-t-box lg:rounded-tr-none <?php endif; ?>
-        <?php if ($note->id == $selectedNote->id) : ?> bg-base-200 <?php endif; ?>">
+        <?php if ($key == 0) { ?> rounded-t-box lg:rounded-tr-none <?php } ?>
+        <?php if ($note->id == $selectedNote->id) { ?> bg-base-200 <?php } ?>">
         <?= $note->title ?>
-        <span class="text-sm"> id: <?= $note->id ?> </span>
+        <span class="text-sm"> id: <?= $note->id ?> | created <?= $note->creationDate() ?> </span>
       </a>
-    <?php endforeach; ?>
+    <?php } ?>
   </ul>
 
   <div class="bg-base-200 w-full rounded-box lg:rounded-l-none p-6 lg:p-10 flex flex-col space-y-6">
@@ -38,7 +38,7 @@ use function Core\session;
         <div class="label">
           <span class="label-text">Your Note</span>
         </div>
-        <textarea <?php if (!session()->get('show')): ?> disabled <?php endif; ?> name="note" class="textarea textarea-bordered h-24 w-full" placeholder="Your note here"><?= isset($selectedNote) ? $selectedNote->note() : '' ?></textarea>
+        <textarea <?php if (! session()->get('show')) { ?> disabled <?php } ?> name="note" class="textarea textarea-bordered h-24 w-full" placeholder="Your note here"><?= isset($selectedNote) ? $selectedNote->note() : '' ?></textarea>
         <span class="text-error mt-1 text-sm"><?= getErrors($validations, 'note') ?></span>
       </label>
     </form>

@@ -1,6 +1,7 @@
 <?php
 
 use function Core\request;
+
 ?>
 <div class="flex flex-col sm:flex-row sm:space-x-4 w-full px-5">
   <form action="/notes" class="flex flex-col sm:flex-row sm:space-x-4 w-full">

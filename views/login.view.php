@@ -9,7 +9,7 @@ $message = flash()->get('successfully_registered');
 ?>
 
 <div class="flex flex-col md:grid md:grid-cols-2 bg-base-100">
-<?php if (!empty($message)) : ?>
+<?php if (! empty($message)) { ?>
     <p class="text-indigo-400 font-mono mb-2 text-center">
         <div class="toast toast-top toast-start" id="toastMessage">
             <div class="alert alert-success">
@@ -17,7 +17,7 @@ $message = flash()->get('successfully_registered');
             </div>
         </div>
     </p>
-<?php endif; ?>
+<?php } ?>
   <div class="hero min-h-screen flex justify-center items-center px-4 md:px-10 lg:px-40 bg-base-100">
     <div class="md:-mt-20 hero-content text-center md:text-left">
       <div>

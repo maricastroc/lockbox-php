@@ -12,15 +12,15 @@ use function Core\session;
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1 flex">
       <li>
-        <?php if (session()->get('show')): ?>
+        <?php if (session()->get('show')) { ?>
           <a href="hide" >
           <i class="ph ph-eye text-lg -mt-1"></i>
           </a>
-          <?php else: ?>
+          <?php } else { ?>
             <a href="confirm">
             <i class="ph ph-eye-slash text-lg -mt-1"></i>
             </a>
-            <?php endif; ?>
+            <?php } ?>
       </li>
       <li>
         <details>

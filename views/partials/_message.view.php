@@ -2,12 +2,12 @@
 
 use function Core\flash;
 
-$message = flash()->get('successfully_created') 
-           ?: flash()->get('successfully_updated') 
+$message = flash()->get('successfully_created')
+           ?: flash()->get('successfully_updated')
            ?: flash()->get('successfully_deleted');
 ?>
 
-<?php if (!empty($message)) : ?>
+<?php if (! empty($message)) { ?>
   <div class="flex space-x-4 w-full px-5">
     <div role="alert" class="alert mt-6 w-full" id="createdMessage">
       <svg
@@ -24,7 +24,7 @@ $message = flash()->get('successfully_created')
       <span> <?= htmlspecialchars($message) ?> </span>
     </div>
   </div>
-<?php endif; ?>
+<?php } ?>
 
 <script>
     window.onload = function() {
